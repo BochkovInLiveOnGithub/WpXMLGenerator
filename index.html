@@ -4,14 +4,71 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>WpXMLGenerator</title>
+	<!--Стили-->
+	<link rel="stylesheet" href="/css/bootstrap.min.css">
+	<link rel="stylesheet" href="/css/style.css">
+	<!--end:Стили-->
 </head>
 <body>
+
 	<main>
-		<section id="form">
-			<form action="">
-				<textarea name="" id="xmlItemExample" cols="30" rows="10"></textarea>
-			</form>
+		<section class="top">
+			<div class="container pt-3">
+				<button class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasWithBothOptions" aria-controls="offcanvasWithBothOptions">Начать</button>
+				<div class="row justify-content-end">
+					<div class="mb-3 col-3">
+						<label for="docName" class="form-label">Имя документа</label>
+						<input type="text" class="form-control" id="docName" placeholder="WordpressImportFile">
+						<div class="pt-2 d-flex justify-content-end">
+							<a href="#" class="btn btn-primary" disabled>Предварительный просмотр</a>
+							<a href="#" class="btn btn-primary" disabled>Скачать .xml</a>
+						</div>
+						
+					</div>
+				</div>
+
+					
+				
+				
+			</div>			
+		</section>
+		<section class="middle">
+			<div class="container">
+				<!--<div class="col-3 mb-3">
+					<label for="varExample" class="form-label">Шаблон для поиска</label>
+
+					<input type="text" class="form-control" id="varExample" placeholder="#">
+					
+				</div>-->
+				
+				<div class="row">
+				<div class="col-6">
+						<div class="d-flex justify-content-between">
+							<label for="xmlItemExample"  class="form-label">Образец item</label>
+							<button class="btn btn-primary" type="button" id="runTabs">Далее</button>
+						</div>
+						
+						<textarea name="" id="xmlItemExample" class="form-control" style="height: 300px;"></textarea>
+						
+				</div>
+				<div class="col-6 d-flex align-items-start">
+					<div class="nav flex-column nav-pills me-3" id="v-pills-tab" role="tablist" aria-orientation="vertical"></div>
+					<div class="tab-content" id="v-pills-tabContent"></div>
+				  </div>
+			</div>
+		</div>
+		</section>
+		<section class="bottom">
+			<div class="container pt-3">
+				<p><i>Как я намучился с этой хуйней в эту прекрасную субботу...</i></p>
+			</div>
+			
 		</section>
 	</main>
 </body>
+<!--Скрипты-->
+<script src="/js/jquery-3.7.1.min.js"></script>
+<script src="/js/bootstrap.bundle.min.js"></script>
+<script src="/js/main.js"></script>
+<!--end:Скрипты-->
 </html>
