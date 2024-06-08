@@ -9,19 +9,43 @@
 	<link rel="stylesheet" href="/css/style.css">
 	<!--end:Стили-->
 </head>
-<body>
-
+<body class="bg-light">
+	<aside>
+		<div class="offcanvas offcanvas-start" data-bs-scroll="true" tabindex="-1" id="offcanvasWithBothOptions" aria-labelledby="offcanvasWithBothOptionsLabel">
+			<div class="offcanvas-header">
+				<h5 class="offcanvas-title" id="offcanvasWithBothOptionsLabel">Начало</h5>
+				<button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+			</div>
+			<div class="offcanvas-body">
+				<div class="col-12">
+					<div class="d-flex justify-content-between">
+						<label for="xmlItemExample"  class="form-label">Образец &lt;item&gt;</label>						
+					</div>
+					<textarea name="" id="xmlItemExample" class="form-control" style="height: 300px;"></textarea>
+					<div class="mt-2">
+						<button class="btn btn-primary" type="button" id="runTabs">Далее</button>
+					</div>
+					
+					
+					
+			</div>
+			</div>
+		</div>
+	</aside>
 	<main>
 		<section class="top">
 			<div class="container pt-3">
-				<button class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasWithBothOptions" aria-controls="offcanvasWithBothOptions">Начать</button>
-				<div class="row justify-content-end">
+				
+				<div class="row justify-content-between">
+					<div class="mb-3 col">
+					<button class="btn btn-info" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasWithBothOptions" aria-controls="offcanvasWithBothOptions">Настройки</button>
+					</div>
 					<div class="mb-3 col-3">
 						<label for="docName" class="form-label">Имя документа</label>
 						<input type="text" class="form-control" id="docName" placeholder="WordpressImportFile">
 						<div class="pt-2 d-flex justify-content-end">
-							<a href="#" class="btn btn-primary" disabled>Предварительный просмотр</a>
-							<a href="#" class="btn btn-primary" disabled>Скачать .xml</a>
+							
+							<button class="btn btn-secondary" id="downloadXML">Скачать .xml</button>
 						</div>
 						
 					</div>
@@ -42,29 +66,52 @@
 				</div>-->
 				
 				<div class="row">
-				<div class="col-6">
-						<div class="d-flex justify-content-between">
-							<label for="xmlItemExample"  class="form-label">Образец item</label>
-							<button class="btn btn-primary" type="button" id="runTabs">Далее</button>
+					
+					<div class="col-12">
+						<div class="d-flex justify-content-end">
+							<button class="btn btn-primary" type="button" id="runPreview" data-bs-toggle="modal" data-bs-target="#modalPreview">Предварительный просмотр</button>
 						</div>
-						
-						<textarea name="" id="xmlItemExample" class="form-control" style="height: 300px;"></textarea>
-						
+						<div class="row align-items-start pt-2">
+							<div class="nav flex-column nav-pills col-2" id="v-pills-tab" role="tablist" aria-orientation="vertical">					
+							</div>
+							<div class="tab-content col-10" id="v-pills-tabContent"></div>
+					</div>
+					</div>
 				</div>
-				<div class="col-6 d-flex align-items-start">
-					<div class="nav flex-column nav-pills me-3" id="v-pills-tab" role="tablist" aria-orientation="vertical"></div>
-					<div class="tab-content" id="v-pills-tabContent"></div>
-				  </div>
-			</div>
 		</div>
 		</section>
-		<section class="bottom">
+		<!--<section class="bottom">
 			<div class="container pt-3">
 				<p><i>Как я намучился с этой хуйней в эту прекрасную субботу...</i></p>
 			</div>
 			
-		</section>
+		</section>-->
 	</main>
+	<!-- Modal -->
+<div class="modal fade" id="modalPreview" tabindex="-1" aria-labelledby="modalPreviewLabel" aria-hidden="true">
+	<div class="modal-dialog modal-dialog-scrollable">
+	  <div class="modal-content">
+		<div class="modal-header">
+		  <h5 class="modal-title fs-5" id="modalPreviewLabel">Предварительный просмотр</h5>
+		  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+		</div>
+		<div class="modal-body">
+		  ...
+		</div>
+		<div class="modal-footer">
+			<div class="mb-3 col-12">
+				<label for="docName" class="form-label">Имя документа</label>
+				<input type="text" class="form-control" id="docName" placeholder="WordpressImportFile">
+				<div class="pt-2 d-flex justify-content-end">
+					
+					<button class="btn btn-secondary" id="downloadXML">Скачать .xml</button>
+				</div>
+				
+			</div>
+		</div>
+	  </div>
+	</div>
+  </div>
 </body>
 <!--Скрипты-->
 <script src="/js/jquery-3.7.1.min.js"></script>
