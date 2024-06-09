@@ -31,7 +31,7 @@ jQuery(document).ready(function($) {
 		xmlns:wfw="http://wellformedweb.org/CommentAPI/"
 		xmlns:dc="http://purl.org/dc/elements/1.1/"
 		xmlns:wp="http://wordpress.org/export/1.2/">`,
-		readyItems	=	[],
+		readyItems,
 		docBottom	=	`</channel></rss>`,
 		finalXml,
 		errors	=	{
@@ -95,6 +95,7 @@ jQuery(document).ready(function($) {
 	function generateData() {
 		//Собрать поля
 		tabsData	=	{};
+		readyItems	=	[];
 		$('#v-pills-tabContent textarea').each(function(){
 			let fieldname = $(this).data('fieldname'),
 				textareaVal = $(this).val().split('\n');
@@ -122,15 +123,25 @@ jQuery(document).ready(function($) {
 			
 			sortTabsData.push(tempObj);
 		}
-		
+		//Провести поиск и замену
 		sortTabsData.forEach(sortData => {
 			replace = sortData;
+			let re = new RegExp(Object.keys(replace).join('|'), 'g');
+			let newText = rawItem.replace(re, (match) => replace[match]);
+			readyItems.push(newText);
+			
 		});
-		console.log(replace);
-		//return tabsData;
+		//console.log(readyItems);
+		return readyItems;
 	}
 	function ShowPreviewCode() {
 		generateData();
+		//console.log(readyItems);
+		modalPreview.find('.modal-body').empty();
+		readyItems.forEach(item => {
+			console.log(item);
+			modalPreview.find('.modal-body').text().append(item);
+		});
 	}
 	function downloadNewDoc() {
 		generateData();
