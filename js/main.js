@@ -8,12 +8,6 @@
  * Нажать кнопку Скачать для загрузки готового документа
  */
 jQuery(document).ready(function($) {	
-	/*let xmlItemExample = $('#xmlItemExample').val(), 
-		tags, 
-		data, 
-		docHead,
-		readyItems = [],
-		docBottom;*/
 		
 	let
 		rawItem,
@@ -25,18 +19,25 @@ jQuery(document).ready(function($) {
 		sortTabsData,
 		tabsDataMaxLength	= 0,
 		replace,
-		docHead	=	`<?xml version="1.0" encoding="UTF-8" ?><rss version="2.0"
+		docHead	=	`<?xml version="1.0" encoding="UTF-8" ?>
+		<rss version="2.0" 
 		xmlns:excerpt="http://wordpress.org/export/1.2/excerpt/"
 		xmlns:content="http://purl.org/rss/1.0/modules/content/"
 		xmlns:wfw="http://wellformedweb.org/CommentAPI/"
 		xmlns:dc="http://purl.org/dc/elements/1.1/"
-		xmlns:wp="http://wordpress.org/export/1.2/">`,
+		xmlns:wp="http://wordpress.org/export/1.2/">
+		<channel>
+		<language>ru-RU</language>
+		<wp:wxr_version>1.2</wp:wxr_version>`,
 		readyItems,
-		docBottom	=	`</channel></rss>`,
+		docBottom	=	`</channel>
+		</rss>`,
 		finalXml,
+		docName = $('#docName'),
 		errors	=	{
 			item: 'Не найден образец <item> ',
 			tags:	'Не указаны метки для замены',
+			preview: 'Нечего показывать',
 		};
 	/*function showError() {
 		//Проверочки
@@ -52,7 +53,7 @@ jQuery(document).ready(function($) {
 	//После нажатия Далее
 	function createTabs() {
 			rawItem	= $('#xmlItemExample').val();
-			rawItem = rawItem.replace(/\s/g,'');
+			rawItem = rawItem.replace(/^\s+/g,'');
 			tags = rawItem.match(/#[a-zA-Zа-яА-Я0-9_]+/g);
 			
 			//Проверочки
@@ -91,11 +92,12 @@ jQuery(document).ready(function($) {
 			});
 	
 	}
-	
+	//Создаем новые данные
 	function generateData() {
-		//Собрать поля
+		
 		tabsData	=	{};
 		readyItems	=	[];
+		//Собрать поля
 		$('#v-pills-tabContent textarea').each(function(){
 			let fieldname = $(this).data('fieldname'),
 				textareaVal = $(this).val().split('\n');
@@ -131,43 +133,36 @@ jQuery(document).ready(function($) {
 			readyItems.push(newText);
 			
 		});
-		//console.log(readyItems);
+		console.log(readyItems);
 		return readyItems;
 	}
-	function ShowPreviewCode() {
+	//Посмотреть превью файла
+	function showPreviewCode() {
 		generateData();
 		//console.log(readyItems);
-		modalPreview.find('.modal-body').empty();
-		readyItems.forEach(item => {
-			console.log(item);
-			modalPreview.find('.modal-body').text().append(item);
-		});
+		let modalBody = modalPreview.find('.modal-body');
+		modalBody.text('');
+
+		/*readyItems.forEach(item => {
+			
+			modalBody.text(modalBody.text() + item);
+		});*/
 	}
+	//Скачать файл
 	function downloadNewDoc() {
 		generateData();
+		readyItems.unshift(docHead);
+		readyItems.push(docBottom);
+		let a = document.createElement("a");
+		let file = new Blob([readyItems.join('')], {type: 'application/xml'});
+		a.href = URL.createObjectURL(file);
+		
+		a.download = `${docName.val() ? docName.val()	: 'WordpressImportFile'}.xml`;
+		a.click();
+		URL.revokeObjectURL(a.href);
 	}
 	$('#runTabs').on('click', createTabs);
-	$('#runPreview').on('click', ShowPreviewCode);
-	//$('#downloadXML').on('click', downloadNewDoc);
-	/* 
-		
-		//После нажатия Предварительный просмотр
-		$('#runPreview').on('click', function() {			
-			data = {};
-			$('#v-pills-tabContent textarea').each(function(){
-				let fieldname = $(this).data('fieldname'),
-					textareaVal = $(this).val().split('\n');
-					
-			data[fieldname] = textareaVal;			
-			
-			
-			});
-
-		});
-		
-		
-	});*/
-	//После нажатия Скачать
-
+	$('#runPreview').on('click', showPreviewCode);
+	$('.downloadXML').on('click', downloadNewDoc);
 
 });
