@@ -14,6 +14,9 @@ jQuery(document).ready(function($) {
 		tabsContainer	= $('#v-pills-tab'),
 		tabContentContainer	= $('#v-pills-tabContent'),
 		modalPreview	=	$('#modalPreview'),
+		separator	=	$('#separator'),
+		tagStart	=	$('#tag-start'),
+		tagEnd	=	$('#tag-end'),
 		tags,
 		tabsData,
 		sortTabsData,
@@ -33,7 +36,7 @@ jQuery(document).ready(function($) {
 		docBottom	=	`</channel>
 		</rss>`,
 		finalXml,
-		docName = $('#docName'),
+		docName = $('.docName'),
 		errors	=	{
 			item: 'Не найден образец <item> ',
 			tags:	'Не указаны метки для замены',
@@ -94,16 +97,26 @@ jQuery(document).ready(function($) {
 	}
 	//Создаем новые данные
 	function generateData() {
-		
+		/**
+		 * ПРОБЛЕМА!!!!!!!!!!!!!!!!!!!!!!!!
+		 * ЕСЛИ ПРОВЕСИТ ИТЕРАЦИЮ ИЗ 3 ЭЛЕМЕНТОВ
+		 * УБРАТЬ	1
+		 * ПРОВЕСТИ ИТЕРАЦИЮ
+		 * В SORTABSDATA БУДЕТ 3 ЭЛЕМЕНТА
+		 * ДОЛЖНО БЫТЬ	2
+		 * 
+		 */
 		tabsData	=	{};
 		readyItems	=	[];
 		//Собрать поля
 		$('#v-pills-tabContent textarea').each(function(){
+			console.log($(this).val());
 			let fieldname = $(this).data('fieldname'),
-				textareaVal = $(this).val().split('\n');
-				
+				textareaVal = $(this).val().split(separator.val()	?	separator.val()	:	'\n');
+				//console.log(separator.val());
 			tabsData[fieldname] = textareaVal;
 		});
+		console.log('tabsData ' + tabsData);
 		//Отсортировать поля
 		sortTabsData	=	[];
 		for(let key in tabsData) {
@@ -125,6 +138,7 @@ jQuery(document).ready(function($) {
 			
 			sortTabsData.push(tempObj);
 		}
+		console.log(sortTabsData);
 		//Провести поиск и замену
 		sortTabsData.forEach(sortData => {
 			replace = sortData;

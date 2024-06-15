@@ -5,8 +5,8 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>WpXMLGenerator</title>
 	<!--Стили-->
-	<link rel="stylesheet" href="/css/bootstrap.min.css">
-	<link rel="stylesheet" href="/css/style.css">
+	<link rel="stylesheet" href="./css/bootstrap.min.css">
+	<link rel="stylesheet" href="./css/style.css">
 	<!--end:Стили-->
 </head>
 <body class="h-100">
@@ -18,10 +18,26 @@
 			</div>
 			<div class="offcanvas-body">
 				<div class="col-12">
-					<div class="d-flex justify-content-between">
-						<label for="xmlItemExample"  class="form-label">Образец &lt;item&gt;</label>						
+					<div class="row">
+						<div class="col-6">
+							<label for="tag-start" class="form-label">Метка начало</label>
+							<input type="text" name="tag-start" id="tag-start" class="form-control"></div>
+						<div class="col-6">
+							<label for="tag-end" class="form-label">Метка конец</label>
+							<input type="text" name="tag-end" id="tag-end" class="form-control">
+						</div>
+						
+						
 					</div>
-					<textarea name="" id="xmlItemExample" class="form-control" style="height: 300px;"></textarea>
+					<div class="mt-2">
+						<label for="separator" class="form-label">Разделитель</label>
+						<input type="text" name="separator" id="separator" class="form-control">
+					</div>
+					<div class="mt-2">
+						<label for="xmlItemExample"  class="form-label">Образец &lt;item&gt;</label>
+						<textarea name="" id="xmlItemExample" class="form-control" style="height: 300px;"></textarea>						
+					</div>
+					
 					<div class="mt-2">
 						<button class="btn btn-primary" type="button" id="runTabs">Далее</button>
 					</div>
@@ -42,7 +58,7 @@
 					</div>
 					<div class="mb-3 col-3">
 						<label for="docName" class="form-label">Имя документа</label>
-						<input type="text" class="form-control" id="docName" placeholder="WordpressImportFile">
+						<input type="text" class="form-control docName" id="docName" placeholder="WordpressImportFile">
 						<div class="pt-2 d-flex justify-content-end">
 							
 							<button class="btn btn-secondary downloadXML">Скачать .xml</button>
@@ -101,7 +117,7 @@
 		<div class="modal-footer">
 			<div class="mb-3 col-12">
 				<label for="docName" class="form-label">Имя документа</label>
-				<input type="text" class="form-control" id="docName" placeholder="WordpressImportFile">
+				<input type="text" class="form-control docName" id="docNameModal" placeholder="WordpressImportFile">
 				<div class="pt-2 d-flex justify-content-end">
 					
 					<button class="btn btn-secondary downloadXML">Скачать .xml</button>
@@ -114,8 +130,8 @@
   </div>
 </body>
 <!--Скрипты-->
-<script src="/js/jquery-3.7.1.min.js"></script>
-<script src="/js/bootstrap.bundle.min.js"></script>
-<script src="/js/main.js"></script>
+<script src="./js/jquery-3.7.1.min.js"></script>
+<script src="./js/bootstrap.bundle.min.js"></script>
+<script src="./js/main.js"></script>
 <!--end:Скрипты-->
 </html>
