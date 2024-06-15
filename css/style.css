@@ -3,3 +3,6 @@ body {
 	background-repeat: no-repeat;
 	background-attachment: fixed;
 }
+.tabs {
+	min-height: 300px;
+}

@@ -20,7 +20,7 @@ jQuery(document).ready(function($) {
 		tags,
 		tabsData,
 		sortTabsData,
-		tabsDataMaxLength	= 0,
+		tabsDataMaxLength,
 		replace,
 		docHead	=	`<?xml version="1.0" encoding="UTF-8" ?>
 		<rss version="2.0" 
@@ -56,7 +56,7 @@ jQuery(document).ready(function($) {
 	//После нажатия Далее
 	function createTabs() {
 			rawItem	= $('#xmlItemExample').val();
-			rawItem = rawItem.replace(/^\s+/g,'');
+		//	rawItem = rawItem.replace(/^\s+/g,'');
 			tags = rawItem.match(/#[a-zA-Zа-яА-Я0-9_]+/g);
 			
 			//Проверочки
@@ -84,10 +84,10 @@ jQuery(document).ready(function($) {
 				<button class="nav-link ${(i == 0)? 'active' : ''}" id="v-pills-${tag}-tab" data-bs-toggle="pill" data-bs-target="#v-pills-${tag}" type="button" role="tab" aria-controls="v-pills-${tag}" aria-selected="true">${tag}</button>
 				`);
 				tabContentContainer.append(`
-				<div class="tab-pane bg-dark-subtle fade show ${(i == 0)? 'active' : ''}" id="v-pills-${tag}" role="tabpanel" aria-labelledby="v-pills-${tag}-tab" tabindex="0">
+				<div class="tab-pane h-100 bg-dark-subtle fade show ${(i == 0)? 'active' : ''}" id="v-pills-${tag}" role="tabpanel" aria-labelledby="v-pills-${tag}-tab" tabindex="0">
 					<div class="col-4 p-2">
 						<label for="${tag}-textarea">${tag}</label>
-						<textarea id="${tag}-textarea" class="form-control" data-fieldname="#${tag}"></textarea>
+						<textarea id="${tag}-textarea" class="form-control" data-fieldname="#${tag}" style="height:300px"></textarea>
 					</div>
 				</div>
 				
@@ -97,27 +97,24 @@ jQuery(document).ready(function($) {
 	}
 	//Создаем новые данные
 	function generateData() {
-		/**
-		 * ПРОБЛЕМА!!!!!!!!!!!!!!!!!!!!!!!!
-		 * ЕСЛИ ПРОВЕСИТ ИТЕРАЦИЮ ИЗ 3 ЭЛЕМЕНТОВ
-		 * УБРАТЬ	1
-		 * ПРОВЕСТИ ИТЕРАЦИЮ
-		 * В SORTABSDATA БУДЕТ 3 ЭЛЕМЕНТА
-		 * ДОЛЖНО БЫТЬ	2
-		 * 
-		 */
+		
 		tabsData	=	{};
 		readyItems	=	[];
 		//Собрать поля
 		$('#v-pills-tabContent textarea').each(function(){
-			console.log($(this).val());
+			//console.log($(this).val());
+			
 			let fieldname = $(this).data('fieldname'),
 				textareaVal = $(this).val().split(separator.val()	?	separator.val()	:	'\n');
 				//console.log(separator.val());
-			tabsData[fieldname] = textareaVal;
+				
+					tabsData[fieldname] = textareaVal;
+				
+			
 		});
-		console.log('tabsData ' + tabsData);
+		//console.log(tabsData);
 		//Отсортировать поля
+		tabsDataMaxLength	=	0;
 		sortTabsData	=	[];
 		for(let key in tabsData) {
 			if(tabsData[key].length > tabsDataMaxLength) {
@@ -125,6 +122,7 @@ jQuery(document).ready(function($) {
 			}
 			
 		}
+		//console.log(tabsDataMaxLength);
 		for(let i = 0; i < tabsDataMaxLength; i++) {
 			let tempObj = {};
 			for(let key in tabsData) {
